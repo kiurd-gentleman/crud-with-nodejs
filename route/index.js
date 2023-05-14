@@ -1,36 +1,23 @@
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 const router = express.Router();
+const HomeController = require("./../controller/HomeController");
+const RegisterController = require("./../controller/auth/RegisterController");
+const LoginController = require("./../controller/auth/LoginController");
 
 router.get("/", (req, res) => {
-    console.log(0)
-    res.send("<h1>I am a get request at Home route</h1>");
+    HomeController.index(req, res);
 });
 
 router.get("/register", (req, res) => {
-    // res.send("<h1>I am a get request at register route</h1>");
-    fs.readFile("./views/auth/register.html", (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.writeHead(200, { "Content-Type": "text/html" });
-            res.write(data);
-            res.end();
-        }
-    })
+    RegisterController.register(req, res);
 });
 
 router.get("/login", (req, res) => {
     // res.send("<h1>I am a get request at login route</h1>");
-    fs.readFile("./views/auth/login.html", (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.writeHead(200, {"Content-Type": "text/html"});
-            res.write(data);
-            res.end();
-        }
-    })
+    LoginController.login(req, res);
 });
+
 
 module.exports = router;

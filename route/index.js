@@ -5,7 +5,7 @@ const router = express.Router();
 const HomeController = require("./../controller/HomeController");
 const RegisterController = require("./../controller/auth/RegisterController");
 const LoginController = require("./../controller/auth/LoginController");
-
+const bodyParser = require("body-parser");
 router.get("/", (req, res) => {
     HomeController.index(req, res);
 });
@@ -20,7 +20,7 @@ router.get("/login", (req, res) => {
     LoginController.login(req, res);
 });
 
-router.post('/login', (req, res) => {
+router.post('/login',bodyParser.urlencoded(),(req, res) => {
     LoginController.authenticate(req, res);
 });
 

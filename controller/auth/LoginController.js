@@ -1,5 +1,6 @@
 const fs = require("fs");
 const db = require("./../../config/database");
+const bcrypt = require("bcrypt")
 
 exports.login = function (req, res) {
     // res.send("<h1>I am a get request at login route</h1>");
@@ -11,8 +12,23 @@ exports.authenticate = function (req, res) {
     // let email = req.body.email;
     // let password = req.body.password;
     db.run().then(async response => {
-        let res = await response.find({}).toArray();
-        console.log("Connected successfully to server", res);
+        let userData = await response.find({"email":req.body.email}).toArray();
+        console.log(userData)
+        if (userData.length !== 0){
+            bcrypt.compare(req.body.password, userData[0].password, function(err, result) {
+                if (err) throw err;
+                console.log(result);
+                if (result){
+                    console.log("Login Success");
+                    console.log("Login Success" , userData[0]);
+                    // req.session.user = userData[0];
+                    return res.redirect("/home");
+                }
+                response.close();
+            },res , userData , response)
+        }else {
+            console.log("No Data Found");
+        }
     });
-    return res.send("I am a post request at login route");
+    // return res.redirect("/login");
 }

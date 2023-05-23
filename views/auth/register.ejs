@@ -1,8 +1,35 @@
-<%- include('./layouts/header') %>
+<%- include('./../layouts/header') %>
 <body>
 <div>
-    <%- include('./layouts/navbar')%>
-    <h1>Articles</h1>
+    <%- include('./../layouts/navbar')%>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <div>
+            <form method="post" action="/register">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nameInput">Name</label>
+                        <input type="text" name="name" class="form-control" id="nameInput" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput">Email</label>
+                        <input type="email" name="email" class="form-control" id="emailInput" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordInput">Password</label>
+                        <input type="password" name="password" class="form-control" id="passwordInput">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Address</label>
+                    <textarea type="text" class="form-control" rows="3" name="address" id="inputAddress">
+                    </textarea>
+                </div>
+                <button type="submit" class=" form-group btn btn-primary mt-2">Sign in</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 </body>
-<%- include('./layouts/footer') %>
+<%- include('./../layouts/footer') %>

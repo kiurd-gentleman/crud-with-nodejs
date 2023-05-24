@@ -8,24 +8,21 @@ exports.login = function (req, res) {
 }
 
 exports.authenticate = function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     // let email = req.body.email;
     // let password = req.body.password;
     db.run().then(async response => {
         let userData = await response.find({"email":req.body.email}).toArray();
-        console.log(userData)
+        // console.log(userData)
         if (userData.length !== 0){
             bcrypt.compare(req.body.password, userData[0].password, function(err, result) {
                 if (err) throw err;
-                console.log(result);
                 if (result){
-                    console.log("Login Success");
-                    console.log("Login Success" , userData[0]);
-                    // req.session.user = userData[0];
+                    req.session.user = userData[0];
                     return res.redirect("/home");
                 }
                 response.close();
-            },res , userData , response)
+            },res , userData[0] , response)
         }else {
             console.log("No Data Found");
         }

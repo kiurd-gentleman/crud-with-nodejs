@@ -25,23 +25,36 @@ router.post("/register", bodyParser.urlencoded(), (req, res) => {
     RegisterController.register(req, res);
 });
 
-router.get("/login", (req, res) => {
+router.get("/login", webAuth, (req, res) => {
     // res.send("<h1>I am a get request at login route</h1>");
     LoginController.login(req, res);
 });
 
-router.post('/login', bodyParser.urlencoded(), (req, res) => {
+router.post('/login', webAuth, bodyParser.urlencoded(), (req, res) => {
     LoginController.authenticate(req, res);
 });
 
+router.get("/logout", (req, res) => {
+    console.log("Logout" , req.session.user);
+    req.session.destroy();
+    return res.redirect("/login");
+});
+
 function checkAuth(req, res, next) {
-
     if (req.session.user) {
-        next();
+        return next();
     } else {
-        res.redirect("/login");
+        return res.redirect("/login");
     }
-
 }
+
+function webAuth(req, res, next) {
+    if (req.session.user) {
+        return res.redirect("/home");
+    } else {
+        return next();
+    }
+}
+
 
 module.exports = router;

@@ -1,0 +1,28 @@
+<%- include('./layouts/header') %>
+<body>
+<div>
+    <%- include('./layouts/nav') %>
+    <h1>This is Index</h1>
+    <div class="container">
+        <form method="post" action="/post-create" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input name="title" type="text" class="form-control" id="inputTitle" placeholder="Title">
+                </div>
+                <div class="form-group ">
+                    <label for="inputDescription">Description</label>
+                    <textarea name="description" class="form-control" id="inputDescription" placeholder="Description">
+                        </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputFile">File</label>
+                    <input name="files" type="file" class="form-control" id="inputFile" multiple>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Sign in</button>
+        </form>
+    </div>
+</div>
+</body>
+<%- include('./layouts/footer') %>

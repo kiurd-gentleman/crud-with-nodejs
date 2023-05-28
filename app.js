@@ -15,6 +15,7 @@ app.use(
         saveUninitialized: false,
     })
 );
+
 app.use(cookieParser());
 const userRouter = require("./route/index");
 const bodyParser = require("body-parser");

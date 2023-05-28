@@ -2,6 +2,7 @@ const fs = require("fs");
 const db = require("./../../config/database");
 const hash = require('crypto');
 const bcrypt = require("bcrypt")
+const model = require("./../../models/User");
 
 
 exports.index = function (req, res) {
@@ -17,7 +18,7 @@ exports.register = async function (req, res) {
         address: req.body.address,
     }
 
-    db.run().then(async response => {
+    model.user().then(async response => {
         let res = await response.insertOne(data, function (err, res) {
             if (err) throw err;
             console.log("1 document inserted");

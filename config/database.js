@@ -10,11 +10,11 @@ const client = new MongoClient(uri, {
     }
 });
 
-exports.run = async function () {
+exports.connection = async function () {
     try {
         let connection = await client.connect();
-        let db = connection.db("nodejs_prectise");
-        return db.collection("nodejs_prectise");
+        // return db.collection("post_images");
+        return connection.db("nodejs_prectise");
         // let response = await collection.find({}).toArray();
     } catch (err) {
         console.log(err.stack);

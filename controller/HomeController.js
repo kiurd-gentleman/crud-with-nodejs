@@ -1,14 +1,17 @@
 const db = require("../config/database");
-const model = require("./../models/Post");
+const {Post} = require("../models/Post");
+// const model = require("./../models/Post");
 
 
 
-exports.index = function (req, res) {
-    model.post().then(async response => {
-        let data = await response.find({}).toArray();
-        res.render("./home" , {title: "Home Page", posts: data})
+exports.index = async function (req, res) {
 
-    },res)
-    // res.render("./home" , {title: "Home Page"})
+    let posts = await Post.find({})
+    // model.post().then(async response => {
+    //     let data = await response.find({}).toArray();
+    //     res.render("./home" , {title: "Home Page", posts: data})
+    //
+    // },res)
+    res.render("./home", {title: "Home Page" , posts: posts})
     // res.sendFile(path.resolve(__dirname + "./../views/home.html"));
 }

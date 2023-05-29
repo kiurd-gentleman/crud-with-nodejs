@@ -1,8 +1,8 @@
 const fs = require("fs");
-const db = require("./../../config/database");
+const {User} = require("./../../models/User");
 const hash = require('crypto');
 const bcrypt = require("bcrypt")
-const model = require("./../../models/User");
+// const model = require("./../../models/User");
 
 
 exports.index = function (req, res) {
@@ -18,13 +18,19 @@ exports.register = async function (req, res) {
         address: req.body.address,
     }
 
-    model.user().then(async response => {
-        let res = await response.insertOne(data, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            response.close();
-        });
-        console.log("Data Insert successfully to Database", res);
-    });
+    let user = new User(data);
+    user.save().then(response => {
+        console.log(response, "response");
+        // res.redirect("/login");
+
+    } , res)
+    // model.user().then(async response => {
+    //     let res = await response.insertOne(data, function (err, res) {
+    //         if (err) throw err;
+    //         console.log("1 document inserted");
+    //         response.close();
+    //     });
+    //     console.log("Data Insert successfully to Database", res);
+    // });
     res.redirect("/register");
 }

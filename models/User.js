@@ -1,11 +1,10 @@
-const connection = require('../config/database');
+const mongoose = require("mongoose")
 
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    address: String,
+})
 
-exports.user = async function () {
-    try {
-        const connectionCall = await connection.connection();
-        return connectionCall.collection("nodejs_prectise");
-    } catch (err) {
-        console.log(err.stack);
-    }
-}
+exports.User = mongoose.model("User", userSchema)

@@ -1,11 +1,8 @@
-const connection = require('../config/database');
+const mongoose = require("mongoose")
 
+const postSchema = new mongoose.Schema({
+    title: String,
+    description: String
+})
 
-exports.post = async function () {
-    try {
-        const connectionCall = await connection.connection();
-        return connectionCall.collection("post");
-    } catch (err) {
-        console.log(err.stack);
-    }
-}
+exports.Post = mongoose.model("Post", postSchema)

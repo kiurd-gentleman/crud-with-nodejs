@@ -24,13 +24,5 @@ exports.register = async function (req, res) {
         // res.redirect("/login");
 
     } , res)
-    // model.user().then(async response => {
-    //     let res = await response.insertOne(data, function (err, res) {
-    //         if (err) throw err;
-    //         console.log("1 document inserted");
-    //         response.close();
-    //     });
-    //     console.log("Data Insert successfully to Database", res);
-    // });
     res.redirect("/register");
 }

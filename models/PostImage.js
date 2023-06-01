@@ -1,11 +1,9 @@
-const connection = require('../config/database');
+const mongoose = require("mongoose")
 
+const postImageSchema = new mongoose.Schema({
+    path: String,
+    post_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Post' },
+    created_at: { type: Date, default: Date.now },
+})
 
-exports.postImages = async function () {
-    try {
-        return connection.connection().collection("post_images");
-        // let response = await collection.find({}).toArray();
-    } catch (err) {
-        console.log(err.stack);
-    }
-}
+exports.PostImage = mongoose.model("Post_image", postImageSchema)

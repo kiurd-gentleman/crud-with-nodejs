@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     address: String,
+    created_at: { type: Date, default: Date.now },
 })
 
 exports.User = mongoose.model("User", userSchema)

@@ -51,7 +51,7 @@ const multerFilter = (req, file, cb) => {
         file.mimetype.split("/")[1] === "wmv" ||
         file.mimetype.split("/")[1] === "flv" ||
         file.mimetype.split("/")[1] === "3gp" ||
-        file.mimetype.split("/")[1] === "mkv" ) {
+        file.mimetype.split("/")[1] === "mkv") {
         cb(null, true);
     } else {
         cb(null, true);
@@ -94,12 +94,12 @@ router.get("/logout", (req, res) => {
     return res.redirect("/login");
 });
 
-router.get('/post-create', (req, res) => {
+router.get('/post-create', checkAuth, (req, res) => {
     PostController.create(req, res);
     // res.render("./create" , {title: "Create Page"})
 })
 
-router.post('/post-create', upload.array("files"), bodyParser.urlencoded(), (req, res) => {
+router.post('/post-create', checkAuth, upload.array("files"), bodyParser.urlencoded(), (req, res) => {
     // console.log(req.body);
     // console.log(req.files);
     PostController.store(req, res);

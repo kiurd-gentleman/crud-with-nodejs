@@ -3,6 +3,7 @@ const app = require("./app");
 
 const path = require("path");
 const express = require("express");
+const {connect} = require("./config/database");
 
 app.set('view engine', 'ejs')
 
@@ -17,7 +18,13 @@ app.use(
 
 const hostname = '127.0.0.1';
 const port = 8080;
-app.listen(port, hostname, () => {
-    console.log('server is running')
-    console.log(`server is running at http://${hostname}:${port}`)
+const startServer = async () => {
+    await connect();
+    app.listen(port, hostname, () => {
+        console.log('server is running')
+        console.log(`server is running at http://${hostname}:${port}`)
+    })
+};
+startServer().then(r => {
+    console.log(r);
 })

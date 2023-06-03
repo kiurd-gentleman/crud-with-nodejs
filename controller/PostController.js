@@ -1,8 +1,10 @@
-// const {mongoose} = require("./../config/database");
 const bcrypt = require("bcrypt");
 const {Post} = require("./../models/Post");
 const {PostImage} = require("../models/PostImage");
-// const PostImage = require("./../models/PostImage");
+const fs = require("fs");
+const path = require("path");
+const { dirname } = require('path');
+const appDir = dirname(require.main.filename);
 
 
 
@@ -17,19 +19,22 @@ exports.store = async function (req, res) {
     let data = {
         title: req.body.title,
         description: req.body.description,
-        user_id: req.session.user._id
+        user_id: req.session.user._id,
+        image : []
     }
+
+    console.log(req.files , 'files')
+    console.log(__dirname + '/storage/' + req.files[0].filename , 'directory')
+    for (let i = 0; i < req.files.length; i++) {
+        files[i] = {
+            data: fs.readFileSync(path.join(appDir + '/storage/' + req.files[i].filename)),
+            contentType: 'image/png'
+        };
+    }
+    data.image = files;
     let insertData = new Post(data)
     insertData.save()
 
-    for (let i = 0; i < req.files.length; i++) {
-        files[i] = {
-            post_id: insertData._id,
-            path: req.files[i].path,
-        };
-
-    }
-    await PostImage.collection.insertMany(files)
 
     res.redirect("/post-create");
 }

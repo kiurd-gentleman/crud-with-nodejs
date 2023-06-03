@@ -21,7 +21,6 @@ const port = 8080;
 const startServer = async () => {
     await connect();
     app.listen(port, hostname, () => {
-        console.log('server is running')
         console.log(`server is running at http://${hostname}:${port}`)
     })
 };

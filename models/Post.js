@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema({
     description: String,
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     created_at: { type: Date, default: Date.now },
+    image: Object
 })
 
 exports.Post = mongoose.model("Post", postSchema)

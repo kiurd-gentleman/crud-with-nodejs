@@ -20,7 +20,6 @@ exports.register = async function (req, res) {
 
     let user = new User(data);
     user.save().then(response => {
-        console.log(response, "response");
         // res.redirect("/login");
 
     } , res)

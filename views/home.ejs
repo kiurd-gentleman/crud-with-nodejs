@@ -6,7 +6,13 @@
     <div class="container">
         <ul class="list-group">
             <% for(var i=0; i<posts.length; i++) { %>
-                <li class="list-group-item disabled"><%= posts[i].title %></li>
+                <li class="list-group-item disabled"><%= posts[i].title %>
+                <% for (var j =0 ; j< posts[i].image.length; j++) { %>
+                    <img  src="data:image/<%=posts[i].image[j].contentType%>;base64,
+                    <%=posts[i].image[j].data.toString('base64')%>"
+                    >
+                <% } %>
+                </li>
             <% } %>
         </ul>
     </div>

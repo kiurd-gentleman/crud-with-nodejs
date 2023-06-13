@@ -1,21 +1,82 @@
 <%- include('./layouts/header') %>
 <body>
 <div>
-    <%- include('./layouts/nav')%>
+    <%- include('./layouts/nav') %>
     <h1>This is Home <%= title %></h1>
     <div class="container">
-        <ul class="list-group">
-            <% for(var i=0; i<posts.length; i++) { %>
-                <li class="list-group-item disabled"><%= posts[i].title %>
-                <% for (var j =0 ; j< posts[i].image.length; j++) { %>
-                    <img  src="data:image/<%=posts[i].image[j].contentType%>;base64,
-                    <%=posts[i].image[j].data.toString('base64')%>"
-                    >
-                <% } %>
-                </li>
+        <table class="table caption-top">
+            <caption>List of users</caption>
+            <thead>
+            <tr>
+                <th scope="col">Row</th>
+                <th scope="col">Title</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% for(var i = 0; i < posts.length; i++) { %>
+                <tr>
+                    <th scope="row"><%= i + 1 %></th>
+                    <td><p><%= posts[i].title %></p></td>
+                    <td >
+                        <% for (var j = 0 ; j < posts[i].image.length; j++) { %>
+                        <img  src="data:image/<%= posts[i].image[j].contentType %>;base64,
+                    <%= posts[i].image[j].data.toString('base64') %>" width="10%">
+                        <% } %>
+                    </td>
+                    <td>
+                        <a class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Comment</a>
+                        <a class=" btn btn-info" href="/post-view/<%= posts[i]._id %>" >View</a>
+                        <a class=" btn btn-danger" href="/post-delete/<%= posts[i]._id %> ">Delete</a>
+                    </td>
+                </tr>
             <% } %>
-        </ul>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" onclick="myFunction()">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    function myFunction() {
+
+
+        // var myModal = document.getElementById('exampleModal')
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        // var myInput = document.getElementById('myInput')
+
+        console.log(myModal)
+        myModal.toggle()
+        // myModal.addEventListener('shown.bs.modal', function () {
+        //     console.log('shown')
+        //     // myInput.focus()
+        // })
+    }
+
+</script>
 </body>
 <%- include('./layouts/footer') %>

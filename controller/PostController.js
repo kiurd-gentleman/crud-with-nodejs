@@ -24,7 +24,7 @@ exports.store = async function (req, res) {
     }
 
     console.log(req.files , 'files')
-    console.log(__dirname + '/storage/' + req.files[0].filename , 'directory')
+    // console.log(__dirname + '/storage/' + req.files[0].filename , 'directory')
     for (let i = 0; i < req.files.length; i++) {
         files[i] = {
             data: fs.readFileSync(path.join(appDir + '/storage/' + req.files[i].filename)),
@@ -39,6 +39,12 @@ exports.store = async function (req, res) {
     res.redirect("/post-create");
 }
 
+exports.comment = async function (req, res) {
+
+    console.log(req.body.comment)
+
+}
+
 function makeid(length) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -49,4 +55,10 @@ function makeid(length) {
         counter += 1;
     }
     return result +'-'+ Date.now();
+}
+
+exports.view = async function (req, res) {
+    let post = await Post.findOne({_id: req.params.id}).populate("user_id").populate('comment').exec()
+    // console.log(post , 'post')
+    res.render("./post-view", {title: "View Page" , post: post , appDir: appDir})
 }

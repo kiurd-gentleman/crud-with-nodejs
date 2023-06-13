@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const IndexController = require("../controller/IndexController");
 const HomeController = require("../controller/HomeController");
 const PostController = require("../controller/PostController");
+const CommentController = require("../controller/CommentController");
 const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "storage/");
@@ -100,11 +101,17 @@ router.get('/post-create', checkAuth, (req, res) => {
 })
 
 router.post('/post-create', checkAuth, upload.array("files"), bodyParser.urlencoded(), (req, res) => {
-    // console.log(req.body);
-    // console.log(req.files);
     PostController.store(req, res);
-    // res.render("./create" , {title: "Create Page"})
 })
+
+router.post('/comment-create/:id', checkAuth, bodyParser.urlencoded(), (req, res) => {
+    CommentController.store(req, res);
+});
+
+router.get('/post-view/:id', checkAuth, (req, res) => {
+    PostController.view(req, res);
+})
+
 
 function checkAuth(req, res, next) {
     if (req.session.user) {
